@@ -1,241 +1,626 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Space Hub - Premium Roblox Scripts</title>
-<meta content="Space Hub premium Roblox scripts with one loader, supported games, official shop access, and weekly updates." name="description"/>
-<link href="assets/styles.css" rel="stylesheet"/>
-<link href="https://cdn.discordapp.com/icons/1406607908577218681/a01a0d9f9d4262bd764e56cd9ae602a8.png?size=128" rel="icon"/>
-<link href="https://cdn.discordapp.com/icons/1406607908577218681/a01a0d9f9d4262bd764e56cd9ae602a8.png?size=128" rel="apple-touch-icon"/>
-<script src="https://cdn.tailwindcss.com"></script></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>rawr.xyz</title>
+    <meta name="description" content="rawr.xyz server">
+    <meta name="theme-color" content="#ef4444">
+
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <script src="../cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="../cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="../cdn.tailwindcss.com/index.html"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050505',
+                        primary: '#ef4444',
+                        foreground: '#ffffff',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        #root {
+            width: 100%;
+            min-height: 100vh;
+            background: #050505;
+        }
+        body {
+            margin: 0;
+            background: #050505;
+            overflow-x: hidden;
+        }
+        .rain-canvas {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 0 !important;
+            pointer-events: none !important;
+            opacity: 0.15 !important;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to bottom, transparent, rgba(239, 68, 68, 0.1), transparent);
+            z-index: 20;
+            animation: scan 6s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scan {
+            0%   { top: -5%; }
+            100% { top: 105%; }
+        }
+        .logo-glow {
+            filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .copy-success {
+            animation: successPulse 0.5s ease;
+        }
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .footer-link {
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        .footer-link:hover {
+            color: #ef4444;
+        }
+        .nav-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .nav-tab:hover {
+            color: white;
+        }
+        .nav-tab.active {
+            background: #ef4444;
+            color: black;
+        }
+        .script-card {
+            transition: all 0.3s ease;
+        }
+        .script-card:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+        .tag {
+            transition: all 0.3s ease;
+        }
+        .tag:hover {
+            color: white;
+            background: rgba(239, 68, 68, 0.2);
+        }
+        .link-button {
+            transition: all 0.3s ease;
+        }
+        .link-button:hover {
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .link-button:hover i {
+            color: #ef4444;
+        }
+        .link-button:hover span {
+            color: white;
+        }
+    </style>
+</head>
 <body>
-<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<filter height="100%" id="glass-distortion" width="100%" x="0%" y="0%">
-<feturbulence basefrequency="0.008 0.008" numoctaves="2" result="noise" seed="92" type="fractalNoise"></feturbulence>
-<fegaussianblur in="noise" result="blurred" stddeviation="2"></fegaussianblur>
-<fedisplacementmap in="SourceGraphic" in2="blurred" scale="77" xchannelselector="R" ychannelselector="G"></fedisplacementmap>
-</filter>
-</defs>
-</svg>
-<div class="bg-canvas" id="bgCanvas">
-<canvas id="starsCanvas"></canvas>
-<div class="nebula n1"></div>
-<div class="nebula n2"></div>
-<div class="nebula n3"></div>
-<div class="grid-overlay"></div>
-</div>
-<nav class="dynamic-island" id="dynamicIsland">
-<div class="di-inner">
-<div class="di-left">
-<a aria-label="Space Hub Home" class="di-logo" href="/">
-<div class="di-logo-icon">
-<svg fill="none" height="18" viewbox="0 0 24 24" width="18">
-<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<span class="di-logo-text">Space Hub</span>
-</a>
-</div>
-<div class="di-center">
-<a class="di-link" href="games/">Games</a>
-<a class="di-link" href="shop/">Shop</a>
-</div>
-<div class="di-right">
-<a class="di-discord" href="https://discord.spacehub.wtf" rel="noreferrer" target="_blank">
-<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="18">
-<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.032.054a19.9 19.9 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path>
-</svg>
-<span>Discord</span>
-</a>
-</div>
-</div>
-</nav>
-<section class="hero" id="home">
-<div aria-hidden="true" class="hero-orb hero-orb-a"></div>
-<div aria-hidden="true" class="hero-orb hero-orb-b"></div>
-<div aria-hidden="true" class="hero-orb hero-orb-c"></div>
-<div class="hero-shell">
-<div class="hero-content">
-<div class="hero-badge">
-<span class="badge-dot"></span>
-<span>Roblox Quality Script Hub</span>
-</div>
-<h1 class="hero-title">
-          Dominate with
-          <span class="gradient-text">Space Hub</span><br/>
-</h1>
-<p class="hero-sub">
-          Roblox scripts for a lot of games. Updated weekly.<br/>
-          Works with Volt, Wave, ChocoSploit and other major executors.
-        </p>
-<div class="hero-actions">
-<button class="btn-primary" onclick="copyScript()">
-<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
-<polygon points="5 3 19 12 5 21 5 3"></polygon>
-</svg>
-            Get Script
-          </button>
-<a class="btn-ghost" href="games/">Browse Games</a>
-<a class="btn-ghost" href="shop/">Official Shop</a>
-</div>
-<div class="script-box hero-script-box" id="scriptBox">
-<div class="script-box-header">
-<div class="sb-dots">
-<span class="dot red"></span>
-<span class="dot yellow"></span>
-<span class="dot green"></span>
-</div>
-<span class="sb-title">Space Hub Loader</span>
-<div class="copy-toast" id="copyToast">Copied!</div>
-<button class="sb-copy" onclick="copyScript()" title="Copy">
-<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-</button>
-</div>
-<div class="script-code">
-<span class="c-fn">loadstring</span><span class="c-p">(</span><span class="c-fn">game</span><span class="c-p">:</span><span class="c-fn">HttpGet</span><span class="c-p">(</span><span class="c-str">'https://f.spacehub.wtf/loader.lua'</span><span class="c-p">))()</span>
-</div>
-</div>
-</div>
-</div>
-<div class="stats-row">
-<div class="stat-card">
-<div class="stat-num" data-target="300">0</div>
-<div class="stat-label">Premium Users</div>
-</div>
-<div class="stat-sep"></div>
-<div class="stat-card">
-<div class="stat-num" data-target="350000">0</div>
-<div class="stat-label">Monthly Executions</div>
-</div>
-<div class="stat-sep"></div>
-<div class="stat-card">
-<div class="stat-num" data-target="5">0</div>
-<div class="stat-label">Core Live Games</div>
-</div>
-</div>
-<div class="scroll-hint">
-<span>Scroll to explore</span>
-<div class="scroll-arrow">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="6 9 12 15 18 9"></polyline></svg>
-</div>
-</div>
-</section>
-<section class="showcase-section" id="showcases">
-<div class="section-header">
-<p class="section-eyebrow">Showcases</p>
-<h2 class="section-title">Watch Space Hub in action</h2>
-<p class="showcase-subtitle">A random showcase from the official playlist loads every time.</p>
-</div>
-<div class="video-showcase" data-youtube-playlist="PLGHWSladXKptN-ybRE9xsvrRtTbXR7LZw">
-<div class="video-showcase-main">
-<button aria-label="Previous showcase" class="video-nav-btn video-nav-btn-prev" data-video-prev="" type="button">
-<svg aria-hidden="true" fill="none" viewbox="0 0 24 24"><path d="m15 18-6-6 6-6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-<article class="video-card video-card-main">
-<div class="video-wrapper">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" data-video-frame="" loading="lazy" title="Space Hub showcase"></iframe>
-</div>
-</article>
-<button aria-label="Next showcase" class="video-nav-btn video-nav-btn-next" data-video-next="" type="button">
-<svg aria-hidden="true" fill="none" viewbox="0 0 24 24"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</div>
-</div>
-</section>
-<section class="features" id="features">
-<div class="section-header">
-<p class="section-eyebrow">Features</p>
-<h2 class="section-title">What do we offer?</h2>
-</div>
-<div class="features-grid">
-<article class="feat-card">
-<div class="feat-icon">
-<svg fill="none" height="22" viewbox="0 0 24 24" width="22"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h3>Frequent Updates</h3>
-<p>We push frequent updates, adding new features and fixing bugs to keep you ahead.</p>
-<div class="feat-glow"></div>
-</article>
-<article class="feat-card">
-<div class="feat-icon">
-<svg fill="none" height="22" viewbox="0 0 24 24" width="22"><path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5Z" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path><path d="M3 12.5 12 17l9-4.5M3 17.5 12 22l9-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-<h3>User Base</h3>
-<p>Over 600 premium users and 200,000+ monthly executions trust Space Hub every day.</p>
-<div class="feat-glow"></div>
-</article>
-<article class="feat-card">
-<div class="feat-icon">
-<svg fill="none" height="22" viewbox="0 0 24 24" width="22"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M5 5l14 14M19 5 5 19" opacity=".35" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path></svg>
-</div>
-<h3>Stable &amp; Secure</h3>
-<p>Developed with stability and safety in mind for a smooth experience.</p>
-<div class="feat-glow"></div>
-</article>
-</div>
-</section>
-<section class="process-section" id="flow">
-<div class="section-header">
-<h2 class="section-title">How It Works?</h2>
-</div>
-<div class="process-grid">
-<article class="process-card">
-<h3>Purchase the script</h3>
-<p>After purchasing the script, you'll receive your key.</p>
-</article>
-<article class="process-card">
-<h3>Copy the script</h3>
-<p>Copy the script from the website or our discord.</p>
-</article>
-<article class="process-card">
-<h3>Execute the script</h3>
-<p>Paste the script into your executor and enjoy!</p>
-</article>
-</div>
-</section>
-<section class="games-section" id="games">
-<div class="section-header">
-<p class="section-eyebrow">Games</p>
-<h2 class="section-title">Supported games</h2>
-</div>
-<div class="games-grid home-games-grid">
-<a class="game-card game-card-link" href="games/">
-<div class="game-thumb">
-<img alt="MM2 preview" loading="lazy" src="assets/games/MM2.png"/>
-</div>
-<div class="game-info">
-<h4>Murder Mystery 2</h4>
-<span class="game-tag">Preview</span>
-</div>
-</a>
-<a class="game-card game-card-link" href="games/">
-<div class="game-thumb">
-<img alt="Tower Defense Simulator preview" loading="lazy" src="assets/games/TDS.png"/>
-</div>
-<div class="game-info">
-<h4>Tower Defense Simulator</h4>
-<span class="game-tag">Popular</span>
-</div>
-</a>
-<a class="game-card game-card-link" href="games/">
-<div class="game-thumb">
-<img alt="SailorPierce preview" loading="lazy" src="assets/games/SailorPierce.png"/>
-</div>
-<div class="game-info">
-<h4>Sailor Pierce</h4>
-<span class="game-tag">Fresh</span>
-</div>
-</a>
-</div>
-<div class="games-more">
-<a href="games/">Browse every supported game</a>
-</div>
-</section>
-<div data-site-footer=""></div>
-<script src="assets/runtime-config.js"></script>
-<script src="assets/site.js"></script>
+    <div id="root"></div>
+
+    <script>
+        window.onerror = function(msg, url, line, col, error) {
+            const root = document.getElementById('root');
+            if (root) {
+                root.innerHTML = `
+                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#050505;color:#ef4444;font-family:monospace;padding:20px;text-align:center;">
+                        <h1 style="font-size:24px;margin-bottom:10px;">⚠️ Error Loading Page</h1>
+                        <p style="color:#888;font-size:14px;max-width:500px;">${msg || 'Unknown error'}</p>
+                        <details style="margin-top:20px;color:#555;font-size:12px;max-width:500px;text-align:left;">
+                            <summary>Technical Details</summary>
+                            <pre style="margin-top:10px;background:#111;padding:10px;border-radius:4px;overflow:auto;max-height:200px;">${error?.stack || 'No stack trace available'}</pre>
+                        </details>
+                    </div>
+                `;
+            }
+            return true;
+        };
+
+        if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
+            document.getElementById('root').innerHTML = `
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#050505;color:#ef4444;font-family:monospace;padding:20px;text-align:center;">
+                    <h1 style="font-size:24px;margin-bottom:10px;">⚠️ React Failed to Load</h1>
+                    <p style="color:#888;font-size:14px;">Check your internet connection and try again.</p>
+                </div>
+            `;
+            throw new Error('React not loaded');
+        }
+    </script>
+
+    <script>
+        const { useEffect, useRef, useState } = React;
+        const RainBackground = ({ speed = 1 }) => {
+            const canvasRef = useRef(null);
+            const mouse = useRef({ x: 0, y: 0 });
+
+            const getSeasonConfig = () => {
+                const month = new Date().getUTCMonth();
+                if ([11, 0, 1].includes(month)) return { name: 'winter', color: '200, 230, 255', count: 400, type: 'snow' };
+                if ([2, 3, 4].includes(month)) return { name: 'spring', color: '255, 182, 193', count: 300, type: 'petal' };
+                if ([5, 6, 7].includes(month)) return { name: 'summer', color: '239, 68, 68', count: 600, type: 'rain' };
+                return { name: 'autumn', color: '255, 140, 0', count: 350, type: 'leaf' };
+            };
+
+            useEffect(() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const season = getSeasonConfig();
+                let animationFrameId;
+
+                const droplets = [];
+
+                const resize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+
+                const createParticle = () => ({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    length: season.type === 'rain' ? Math.random() * 20 + 10 : Math.random() * 5 + 5,
+                    size: Math.random() * 2 + 1,
+                    speed: Math.random() * (season.type === 'snow' ? 2 : 10) + 3,
+                    opacity: Math.random() * 0.4 + 0.1,
+                    drift: Math.random() * 2 - 1,
+                    spin: Math.random() * 0.2
+                });
+
+                for (let i = 0; i < season.count; i++) droplets.push(createParticle());
+
+                const handleMouseMove = (e) => {
+                    mouse.current.x = (e.clientX / window.innerWidth) - 0.5;
+                    mouse.current.y = (e.clientY / window.innerHeight) - 0.5;
+                };
+
+                const draw = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    const mouseOffsetX = mouse.current.x * 60;
+                    const tilt = mouse.current.x * (season.type === 'rain' ? 5 : 2);
+
+                    droplets.forEach(p => {
+                        ctx.beginPath();
+                        ctx.fillStyle = `rgba(${season.color}, ${p.opacity})`;
+                        ctx.strokeStyle = `rgba(${season.color}, ${p.opacity})`;
+                        ctx.lineWidth = p.size;
+
+                        if (season.type === 'rain') {
+                            ctx.moveTo(p.x + mouseOffsetX, p.y);
+                            ctx.lineTo(p.x + mouseOffsetX + tilt, p.y + p.length);
+                            ctx.stroke();
+                        } else {
+                            ctx.arc(p.x + mouseOffsetX, p.y, p.size, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+
+                        p.y += p.speed * speed;
+                        p.x += (p.drift + (mouse.current.x * 10)) * speed;
+
+                        if (p.y > canvas.height) {
+                            p.y = -20;
+                            p.x = Math.random() * canvas.width;
+                        }
+                        if (p.x > canvas.width) p.x = 0;
+                        if (p.x < 0) p.x = canvas.width;
+                    });
+
+                    animationFrameId = requestAnimationFrame(draw);
+                };
+
+                window.addEventListener('resize', resize);
+                window.addEventListener('mousemove', handleMouseMove);
+                resize();
+                draw();
+
+                return () => {
+                    window.removeEventListener('resize', resize);
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                };
+            }, [speed]);
+
+            return React.createElement('canvas', {
+                ref: canvasRef,
+                className: 'rain-canvas',
+                style: { filter: 'blur(0.8px)' }
+            });
+        };
+
+        const ScriptBlock = () => {
+            const [copied, setCopied] = useState(false);
+            const [config, setConfig] = useState({
+                version: "LOADING...",
+                status: "CHECKING...",
+                statusColor: "gray"
+            });
+
+            const scriptText = `loadstring(game:HttpGet("https://rawrs.zapto.org/file.txt", true))()`;
+
+            useEffect(() => {
+                const jsonUrl = `https://raw.githubusercontent.com/imcomingforyou6959-gif/rawr.xyl/refs/heads/main/status.json?t=${new Date().getTime()}`;
+
+                fetch(jsonUrl)
+                    .then(response => {
+                        if (!response.ok) throw new Error('File not found');
+                        return response.json();
+                    })
+                    .then(data => {
+                        setConfig(data);
+                    })
+                    .catch(() => {
+                        setConfig({ version: "V4.5.1", status: "ONLINE", statusColor: "green" });
+                    });
+            }, []);
+
+            const handleCopy = async () => {
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(scriptText);
+                    } else {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = scriptText;
+                        textArea.style.position = "fixed";
+                        textArea.style.left = "-9999px";
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        document.execCommand('copy');
+                        textArea.remove();
+                    }
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+            };
+
+            const dotColorClass = config.statusColor === "green" ? "bg-green-500" : 
+                                 config.statusColor === "red" ? "bg-red-500" : "bg-yellow-500";
+            const textColorClass = config.statusColor === "green" ? "text-green-500/80" : 
+                                  config.statusColor === "red" ? "text-red-500/80" : "text-yellow-500/80";
+
+            const CompatibilityBar = () => {
+                const executors = ["Xeno", "Velocity", "Solara", "Volt", "Sirhurt", "Wave", "Madium", "Luna", "And Any Executor!"];
+                return React.createElement('div', { className: "mt-6 w-full max-w-lg px-2 fade-in" },
+                    React.createElement('div', { className: "flex items-center gap-3 mb-3" },
+                        React.createElement('div', { className: "h-[1px] flex-1 bg-white/5" }),
+                        React.createElement('span', { className: "text-[9px] font-mono text-white/20 tracking-[0.3em] uppercase" }, "Verified Compatibility"),
+                        React.createElement('div', { className: "h-[1px] flex-1 bg-white/5" })
+                    ),
+                    React.createElement('div', { className: "flex flex-wrap justify-center gap-x-6 gap-y-3 opacity-40 hover:opacity-100 transition-opacity duration-500" },
+                        ...executors.map((name) =>
+                            React.createElement('div', { key: name, className: "flex items-center gap-2 group" },
+                                React.createElement('div', { className: "w-1 h-1 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-[0_0_8px_#ef4444] transition-all" }),
+                                React.createElement('span', { className: "text-[10px] font-mono font-bold text-white/60 group-hover:text-white transition-colors tracking-wider" }, name)
+                            )
+                        ),
+                        React.createElement('span', { className: "text-[10px] font-mono text-white/20 italic" }, "& more")
+                    )
+                );
+            };
+
+            return React.createElement('div', { className: "flex flex-col items-center w-full" },
+                React.createElement('div', { className: "relative w-full max-w-lg bg-black/60 border border-white/10 rounded-xl overflow-hidden backdrop-blur-md shadow-2xl mt-8 fade-in" },
+                    React.createElement('div', { className: "flex items-center justify-between px-4 py-3 bg-white/5 border-b border-white/10" },
+                        React.createElement('div', { className: "flex items-center gap-4" },
+                            React.createElement('div', { className: "flex gap-1.5" },
+                                React.createElement('div', { className: "w-2.5 h-2.5 rounded-full bg-[#ff5f56]" }),
+                                React.createElement('div', { className: "w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" }),
+                                React.createElement('div', { className: "w-2.5 h-2.5 rounded-full bg-[#27c93f]" })
+                            ),
+                            React.createElement('span', { className: "text-[10px] font-mono text-white/30 bg-white/5 px-2 py-0.5 rounded border border-white/5 uppercase tracking-tighter" }, config.version)
+                        ),
+                        React.createElement('div', { className: "flex items-center gap-2" },
+                            React.createElement('span', { className: "relative flex h-2 w-2" },
+                                React.createElement('span', { className: `animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${dotColorClass}` }),
+                                React.createElement('span', { className: `relative inline-flex rounded-full h-2 w-2 ${dotColorClass}` })
+                            ),
+                            React.createElement('span', { className: `text-[10px] font-mono uppercase tracking-widest font-bold ${textColorClass}` }, config.status)
+                        )
+                    ),
+                    React.createElement('div', { className: "p-6 relative group" },
+                        React.createElement('div', { className: "bg-black/40 rounded-lg p-4 mb-4 border border-white/5 group-hover:border-primary/20 transition-colors" },
+                            React.createElement('code', { className: "block font-mono text-[10px] md:text-xs text-primary/90 break-all leading-relaxed" },
+                                React.createElement('span', { className: "text-white/20 mr-2" }, "$"),
+                                scriptText
+                            )
+                        ),
+                        React.createElement('button', {
+                            onClick: handleCopy,
+                            className: `relative w-full py-4 rounded-lg font-mono text-[10px] font-bold transition-all duration-300 border border-primary/30 bg-primary/5 hover:bg-primary/20 text-white tracking-widest overflow-hidden active:scale-95 ${copied ? 'copy-success' : ''}`
+                        },
+                            copied ? '✅ Copied to Clipboard' : '📋 Click to copy'
+                        )
+                    )
+                ),
+                React.createElement(CompatibilityBar, null)
+            );
+        };
+
+        const ScriptsPage = () => {
+            const [copiedId, setCopiedId] = useState(null);
+
+            const scripts = [
+                {
+                    id: 1,
+                    name: "Universal Old",
+                    description: "outdated",
+                    version: "2.3.1",
+                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/Universal.lua", true))()',
+                    tags: ["ALL-IN-ONE", "STABLE"]
+                },
+                {
+                    id: 2,
+                    name: "Hellmet",
+                    description: "things",
+                    version: "1.1.5",
+                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/Hellmet.lua"))()',
+                    tags: ["ESP", "AIMBOT"]
+                },
+                {
+                    id: 3,
+                    name: "Prison Life",
+                    description: "prison",
+                    version: "4.9.7",
+                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/file.txt", true))()',
+                    tags: ["PRISON", "ESCAPE"]
+                },
+                {
+                    id: 4,
+                    name: "Rivals",
+                    description: "rival",
+                    version: "4.9.6",
+                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/file.txt", true))()',
+                    tags: ["PVP", "COMPETITIVE"]
+                },
+                {
+                    id: 5,
+                    name: "nil",
+                    description: "nil",
+                    version: "2.1.0",
+                    loadstring: 'new',
+                    tags: ["pcp", "pcp"]
+                },
+                {
+                    id: 6,
+                    name: "nil",
+                    description: "nil",
+                    version: "3.0.2",
+                    loadstring: 'nil',
+                    tags: ["nil", "placeholder"]
+                }
+            ];
+
+            const copyScript = async (scriptText, id) => {
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(scriptText);
+                    } else {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = scriptText;
+                        textArea.style.position = "fixed";
+                        textArea.style.left = "-9999px";
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        document.execCommand('copy');
+                        textArea.remove();
+                    }
+                    setCopiedId(id);
+                    setTimeout(() => setCopiedId(null), 2000);
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+            };
+
+            return React.createElement('div', { className: "relative z-20 w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16" },
+                React.createElement('div', { className: "text-center mb-12 fade-in" },
+                    React.createElement('h2', { className: "text-4xl sm:text-5xl font-black font-mono text-white italic tracking-tight" },
+                        "Script ", React.createElement('span', { className: "text-primary" }, "Library")
+                    ),
+                    React.createElement('p', { className: "text-white/30 font-mono text-[10px] sm:text-xs tracking-[0.3em] uppercase mt-3" },
+                        "All scripts are regularly updated"
+                    )
+                ),
+                React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" },
+                    scripts.map((script) =>
+                        React.createElement('div', {
+                            key: script.id,
+                            className: "bg-black/40 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm script-card"
+                        },
+                            React.createElement('div', { className: "p-5" },
+                                React.createElement('div', { className: "flex items-start justify-between mb-3" },
+                                    React.createElement('h3', { className: "text-lg font-bold text-white group-hover:text-primary transition-colors" }, script.name),
+                                    React.createElement('span', { className: "text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded font-mono" }, script.version)
+                                ),
+                                React.createElement('p', { className: "text-white/60 text-sm mb-4 min-h-[40px]" }, script.description),
+                                React.createElement('div', { className: "flex flex-wrap gap-2 mb-4" },
+                                    script.tags.map(tag =>
+                                        React.createElement('span', {
+                                            key: tag,
+                                            className: "text-[9px] bg-white/5 text-white/40 px-2 py-0.5 rounded uppercase tracking-wider tag"
+                                        }, tag)
+                                    )
+                                ),
+                                React.createElement('div', { className: "bg-black/60 rounded-lg p-3 mb-3 border border-white/5 overflow-x-auto" },
+                                    React.createElement('code', { className: "text-primary/80 text-[10px] font-mono break-all select-all" }, script.loadstring)
+                                ),
+                                React.createElement('button', {
+                                    onClick: () => copyScript(script.loadstring, script.id),
+                                    className: "w-full py-2.5 bg-primary/10 hover:bg-primary text-primary hover:text-black border border-primary/20 rounded-lg font-bold text-[10px] tracking-wider uppercase transition-all flex items-center justify-center gap-2"
+                                },
+                                    React.createElement('i', { className: `fas ${copiedId === script.id ? 'fa-check' : 'fa-copy'} text-[10px]` }),
+                                    copiedId === script.id ? 'Copied!' : 'Copy Script'
+                                )
+                            )
+                        )
+                    )
+                ),
+                React.createElement('div', { className: "mt-12 text-center" },
+                    React.createElement('p', { className: "text-white/20 text-[9px] font-mono" },
+                        React.createElement('i', { className: "fas fa-shield-alt mr-2" }),
+                        "All scripts are regularly updated and tested for stability."
+                    )
+                )
+            );
+        };
+
+        const LinkButton = ({ href, icon, label, external = true }) => {
+            return React.createElement('a', {
+                href: href,
+                target: external ? "_blank" : "_self",
+                rel: external ? "noopener noreferrer" : "",
+                className: "flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 bg-white/[0.02] border border-white/5 rounded-lg sm:rounded-2xl link-button backdrop-blur-sm"
+            },
+                React.createElement('i', { className: `${icon} text-white/30 group-hover:text-primary transition-colors text-lg sm:text-xl` }),
+                React.createElement('span', { className: "font-bold text-[11px] sm:text-[13px] tracking-tight text-white/60 group-hover:text-white transition-colors" }, label)
+            );
+        };
+
+        const App = () => {
+            const [page, setPage] = useState('home');
+
+            const renderPage = () => {
+                if (page === 'scripts') {
+                    return React.createElement(ScriptsPage, null);
+                }
+                return React.createElement('div', { className: "flex flex-col items-center w-full max-w-4xl" },
+                    React.createElement('img', {
+                        src: "assets/logo.png",
+                        alt: "rawr.xyz",
+                        className: "w-28 h-28 sm:w-44 sm:h-44 object-contain mb-8 sm:mb-12 logo-glow",
+                        onError: (e) => { e.target.style.display = 'none'; }
+                    }),
+                    React.createElement('div', { className: "text-center mb-8" },
+                        React.createElement('h1', { className: "text-5xl sm:text-7xl font-black font-mono text-white italic tracking-tighter uppercase leading-tight" },
+                            "rawr", React.createElement('span', { className: "text-primary" }, ".xyz")
+                        ),
+                        React.createElement('p', { className: "text-white/20 font-mono text-[8px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.6em] mt-3 uppercase font-bold" },
+                            "Safety Security Execution"
+                        )
+                    ),
+                    React.createElement('div', { className: "flex flex-wrap justify-center gap-3 sm:gap-5 mb-8" },
+                        React.createElement(LinkButton, { href: "https://discord.gg/eMpUQzFrNG", icon: "fa-brands fa-discord", label: "Community" }),
+                        React.createElement(LinkButton, { href: "https://github.com/imcomingforyou6959-gif/rawr.xyz", icon: "fa-brands fa-github", label: "Repository" }),
+                        React.createElement(LinkButton, { href: "https://www.youtube.com/@rawr.xy3", icon: "fa-brands fa-youtube", label: "Showcase" })
+                    ),
+                    React.createElement(ScriptBlock, null)
+                );
+            };
+
+            const navLinks = [
+                { id: 'home', label: 'Home', icon: 'fa-home' },
+                { id: 'scripts', label: 'Scripts', icon: 'fa-scroll' }
+            ];
+
+            return React.createElement('div', { className: "min-h-screen w-full relative bg-background overflow-hidden" },
+                React.createElement(RainBackground, null),
+                React.createElement('div', { className: "scanline" }),
+                React.createElement('div', { className: "content-wrapper flex flex-col items-center justify-center" },
+                    // Navigation
+                    React.createElement('div', { className: "relative z-20 flex gap-2 mb-8 bg-white/5 p-1 rounded-full border border-white/10" },
+                        navLinks.map(link =>
+                            React.createElement('button', {
+                                key: link.id,
+                                onClick: () => setPage(link.id),
+                                className: `px-6 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all nav-tab ${page === link.id ? 'active' : 'text-white/40 hover:text-white/80'}`
+                            },
+                                React.createElement('i', { className: `fas ${link.icon} mr-2` }),
+                                link.label
+                            )
+                        )
+                    ),
+                    renderPage(),
+                    React.createElement('footer', { className: "mt-16 sm:mt-24 z-20 text-center select-none w-full max-w-4xl" },
+                        React.createElement('div', { className: "text-[8px] sm:text-[10px] font-mono text-white/10 tracking-[0.5em] sm:tracking-[0.8em] uppercase mb-3" },
+                            "rawr.xyz // find a way to live :3"
+                        ),
+                        React.createElement('div', { className: "flex flex-wrap justify-center gap-3 sm:gap-6 text-[8px] sm:text-[9px] font-mono text-white/20 tracking-normal" },
+                            React.createElement('span', { className: "footer-link", onClick: () => setPage('home') }, "Home"),
+                            React.createElement('span', { className: "text-white/10" }, "•"),
+                            React.createElement('span', { className: "footer-link", onClick: () => setPage('scripts') }, "Scripts"),
+                            React.createElement('span', { className: "text-white/10" }, "•"),
+                            React.createElement('a', {
+                                href: "/tos.html",
+                                className: "footer-link hover:text-primary transition-colors"
+                            }, "Terms of Service"),
+                            React.createElement('span', { className: "text-white/10" }, "•"),
+                            React.createElement('a', {
+                                href: "/privacy.html",
+                                className: "footer-link hover:text-primary transition-colors"
+                            }, "Privacy Policy"),
+                            React.createElement('span', { className: "text-white/10" }, "•"),
+                            React.createElement('a', {
+                                href: "https://discord.gg/eMpUQzFrNG",
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                className: "footer-link"
+                            },
+                                React.createElement('i', { className: "fab fa-discord mr-1" }),
+                                "Support"
+                            )
+                        ),
+                        React.createElement('div', { className: "text-[7px] sm:text-[8px] font-mono text-white/10 mt-3" },
+                            "\u00A9 2026 rawr.xyz - All Rights Reserved"
+                        )
+                    )
+                )
+            );
+        };
+
+        // Render
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
 </body>
 </html>
