@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Space Hub - Premium Roblox Scripts</title>
+<meta content="Space Hub premium Roblox scripts with one loader, supported games, official shop access, and weekly updates." name="description"/>
+<link href="assets/styles.css" rel="stylesheet"/>
+<link href="https://cdn.discordapp.com/icons/1406607908577218681/a01a0d9f9d4262bd764e56cd9ae602a8.png?size=128" rel="icon"/>
+<link href="https://cdn.discordapp.com/icons/1406607908577218681/a01a0d9f9d4262bd764e56cd9ae602a8.png?size=128" rel="apple-touch-icon"/>
+<script src="https://cdn.tailwindcss.com"></script></head>
+<body>
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="100%" id="glass-distortion" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.008 0.008" numoctaves="2" result="noise" seed="92" type="fractalNoise"></feturbulence>
+<fegaussianblur in="noise" result="blurred" stddeviation="2"></fegaussianblur>
+<fedisplacementmap in="SourceGraphic" in2="blurred" scale="77" xchannelselector="R" ychannelselector="G"></fedisplacementmap>
+</filter>
+</defs>
+</svg>
+<div class="bg-canvas" id="bgCanvas">
+<canvas id="starsCanvas"></canvas>
+<div class="nebula n1"></div>
+<div class="nebula n2"></div>
+<div class="nebula n3"></div>
+<div class="grid-overlay"></div>
+</div>
+<nav class="dynamic-island" id="dynamicIsland">
+<div class="di-inner">
+<div class="di-left">
+<a aria-label="Space Hub Home" class="di-logo" href="/">
+<div class="di-logo-icon">
+<svg fill="none" height="18" viewbox="0 0 24 24" width="18">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<span class="di-logo-text">Space Hub</span>
+</a>
+</div>
+<div class="di-center">
+<a class="di-link" href="games/">Games</a>
+<a class="di-link" href="shop/">Shop</a>
+</div>
+<div class="di-right">
+<a class="di-discord" href="https://discord.spacehub.wtf" rel="noreferrer" target="_blank">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="18">
+<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.032.054a19.9 19.9 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path>
+</svg>
+<span>Discord</span>
+</a>
+</div>
+</div>
+</nav>
+<section class="hero" id="home">
+<div aria-hidden="true" class="hero-orb hero-orb-a"></div>
+<div aria-hidden="true" class="hero-orb hero-orb-b"></div>
+<div aria-hidden="true" class="hero-orb hero-orb-c"></div>
+<div class="hero-shell">
+<div class="hero-content">
+<div class="hero-badge">
+<span class="badge-dot"></span>
+<span>Roblox Quality Script Hub</span>
+</div>
+<h1 class="hero-title">
+          Dominate with
+          <span class="gradient-text">Space Hub</span><br/>
+</h1>
+<p class="hero-sub">
+          Roblox scripts for a lot of games. Updated weekly.<br/>
+          Works with Volt, Wave, ChocoSploit and other major executors.
+        </p>
+<div class="hero-actions">
+<button class="btn-primary" onclick="copyScript()">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
+<polygon points="5 3 19 12 5 21 5 3"></polygon>
+</svg>
+            Get Script
+          </button>
+<a class="btn-ghost" href="games/">Browse Games</a>
+<a class="btn-ghost" href="shop/">Official Shop</a>
+</div>
+<div class="script-box hero-script-box" id="scriptBox">
+<div class="script-box-header">
+<div class="sb-dots">
+<span class="dot red"></span>
+<span class="dot yellow"></span>
+<span class="dot green"></span>
+</div>
+<span class="sb-title">Space Hub Loader</span>
+<div class="copy-toast" id="copyToast">Copied!</div>
+<button class="sb-copy" onclick="copyScript()" title="Copy">
+<svg fill="none" height="13" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="13"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+</button>
+</div>
+<div class="script-code">
+<span class="c-fn">loadstring</span><span class="c-p">(</span><span class="c-fn">game</span><span class="c-p">:</span><span class="c-fn">HttpGet</span><span class="c-p">(</span><span class="c-str">'https://f.spacehub.wtf/loader.lua'</span><span class="c-p">))()</span>
+</div>
+</div>
+</div>
+</div>
+<div class="stats-row">
+<div class="stat-card">
+<div class="stat-num" data-target="300">0</div>
+<div class="stat-label">Premium Users</div>
+</div>
+<div class="stat-sep"></div>
+<div class="stat-card">
+<div class="stat-num" data-target="350000">0</div>
+<div class="stat-label">Monthly Executions</div>
+</div>
+<div class="stat-sep"></div>
+<div class="stat-card">
+<div class="stat-num" data-target="5">0</div>
+<div class="stat-label">Core Live Games</div>
+</div>
+</div>
+<div class="scroll-hint">
+<span>Scroll to explore</span>
+<div class="scroll-arrow">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+</div>
+</section>
+<section class="showcase-section" id="showcases">
+<div class="section-header">
+<p class="section-eyebrow">Showcases</p>
+<h2 class="section-title">Watch Space Hub in action</h2>
+<p class="showcase-subtitle">A random showcase from the official playlist loads every time.</p>
+</div>
+<div class="video-showcase" data-youtube-playlist="PLGHWSladXKptN-ybRE9xsvrRtTbXR7LZw">
+<div class="video-showcase-main">
+<button aria-label="Previous showcase" class="video-nav-btn video-nav-btn-prev" data-video-prev="" type="button">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24"><path d="m15 18-6-6 6-6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<article class="video-card video-card-main">
+<div class="video-wrapper">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" data-video-frame="" loading="lazy" title="Space Hub showcase"></iframe>
+</div>
+</article>
+<button aria-label="Next showcase" class="video-nav-btn video-nav-btn-next" data-video-next="" type="button">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</section>
+<section class="features" id="features">
+<div class="section-header">
+<p class="section-eyebrow">Features</p>
+<h2 class="section-title">What do we offer?</h2>
+</div>
+<div class="features-grid">
+<article class="feat-card">
+<div class="feat-icon">
+<svg fill="none" height="22" viewbox="0 0 24 24" width="22"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3>Frequent Updates</h3>
+<p>We push frequent updates, adding new features and fixing bugs to keep you ahead.</p>
+<div class="feat-glow"></div>
+</article>
+<article class="feat-card">
+<div class="feat-icon">
+<svg fill="none" height="22" viewbox="0 0 24 24" width="22"><path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5Z" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path><path d="M3 12.5 12 17l9-4.5M3 17.5 12 22l9-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3>User Base</h3>
+<p>Over 600 premium users and 200,000+ monthly executions trust Space Hub every day.</p>
+<div class="feat-glow"></div>
+</article>
+<article class="feat-card">
+<div class="feat-icon">
+<svg fill="none" height="22" viewbox="0 0 24 24" width="22"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path><path d="M5 5l14 14M19 5 5 19" opacity=".35" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path></svg>
+</div>
+<h3>Stable &amp; Secure</h3>
+<p>Developed with stability and safety in mind for a smooth experience.</p>
+<div class="feat-glow"></div>
+</article>
+</div>
+</section>
+<section class="process-section" id="flow">
+<div class="section-header">
+<h2 class="section-title">How It Works?</h2>
+</div>
+<div class="process-grid">
+<article class="process-card">
+<h3>Purchase the script</h3>
+<p>After purchasing the script, you'll receive your key.</p>
+</article>
+<article class="process-card">
+<h3>Copy the script</h3>
+<p>Copy the script from the website or our discord.</p>
+</article>
+<article class="process-card">
+<h3>Execute the script</h3>
+<p>Paste the script into your executor and enjoy!</p>
+</article>
+</div>
+</section>
+<section class="games-section" id="games">
+<div class="section-header">
+<p class="section-eyebrow">Games</p>
+<h2 class="section-title">Supported games</h2>
+</div>
+<div class="games-grid home-games-grid">
+<a class="game-card game-card-link" href="games/">
+<div class="game-thumb">
+<img alt="MM2 preview" loading="lazy" src="assets/games/MM2.png"/>
+</div>
+<div class="game-info">
+<h4>Murder Mystery 2</h4>
+<span class="game-tag">Preview</span>
+</div>
+</a>
+<a class="game-card game-card-link" href="games/">
+<div class="game-thumb">
+<img alt="Tower Defense Simulator preview" loading="lazy" src="assets/games/TDS.png"/>
+</div>
+<div class="game-info">
+<h4>Tower Defense Simulator</h4>
+<span class="game-tag">Popular</span>
+</div>
+</a>
+<a class="game-card game-card-link" href="games/">
+<div class="game-thumb">
+<img alt="SailorPierce preview" loading="lazy" src="assets/games/SailorPierce.png"/>
+</div>
+<div class="game-info">
+<h4>Sailor Pierce</h4>
+<span class="game-tag">Fresh</span>
+</div>
+</a>
+</div>
+<div class="games-more">
+<a href="games/">Browse every supported game</a>
+</div>
+</section>
+<div data-site-footer=""></div>
+<script src="assets/runtime-config.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
