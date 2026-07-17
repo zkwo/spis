@@ -1,626 +1,1268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>rawr.xyz</title>
-    <meta name="description" content="rawr.xyz server">
-    <meta name="theme-color" content="#ef4444">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Victoria Script - Premium Roblox Scripts Hub</title>
+    <meta name="description" content="Victoria Script adalah Hub Script Roblox terbaik dan terlengkap. Dapatkan script game Roblox populer, aman, anti-ban, dan selalu update secara berkala.">
+    <meta name="keywords" content="Victoria Script, Roblox Script, Roblox Exploit, Blox Fruits Script, Script Auto Farm, Roblox Hack Indonesia, Best Roblox Script Hub">
+    <meta name="author" content="Victoria Script">
+    <meta name="robots" content="index, follow">
 
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Victoria Script - Premium Roblox Scripts Hub">
+    <meta property="og:description" content="Victoria Script adalah Hub Script Roblox terbaik dan terlengkap. Dapatkan script game Roblox populer, aman, anti-ban, dan selalu update secara berkala.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/fay23-dam/victoriascript/main/assets/Capture.JPG">
 
-    <script src="../cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="../cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="../cdn.tailwindcss.com/index.html"></script>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Victoria Script - Premium Roblox Scripts Hub">
+    <meta property="twitter:description" content="Victoria Script adalah Hub Script Roblox terbaik dan terlengkap. Dapatkan script game Roblox populer, aman, anti-ban, dan selalu update secara berkala.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/fay23-dam/victoriascript/main/assets/Capture.JPG">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        background: '#050505',
-                        primary: '#ef4444',
-                        foreground: '#ffffff',
-                    }
-                }
-            }
-        }
+    <!-- Site Name Metadata for Google -->
+    <meta property="og:site_name" content="Victoria Script">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Victoria Script",
+      "url": "https://victoriascript.vercel.app/"
+    }
     </script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&family=Share+Tech+Mono&family=Zen+Dots&family=Rajdhani:wght@300;400;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-        #root {
-            width: 100%;
-            min-height: 100vh;
-            background: #050505;
+        :root {
+            /* NEW MODERN BLACK, GREY & WHITE MONOCHROME PALETTE */
+            --bg: #09090b;
+            --surface: rgba(20, 20, 23, 0.45);
+            --elevated: rgba(30, 30, 35, 0.65);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.25);
+            
+            --text-white: #ffffff;
+            --text-grey: #a1a1aa;
+            --text-dim: #71717a;
+            
+            /* LIQUID CHROME & LIQUID GLASS GRADIENTS */
+            --chrome-grad: linear-gradient(135deg, #ffffff 0%, #e4e4e7 25%, #71717a 45%, #ffffff 55%, #27272a 70%, #a1a1aa 100%);
+            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            --mirror-shine: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.2) 60%, transparent 70%);
         }
-        body {
+
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            background: #050505;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(161, 161, 170, 0.03) 0%, transparent 40%);
+            color: var(--text-white);
+            min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
-        .rain-canvas {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            z-index: 0 !important;
-            pointer-events: none !important;
-            opacity: 0.15 !important;
+
+        /* Ambient scanlines & modern mesh grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.2) 2px, rgba(0, 0, 0, 0.2) 4px);
+            pointer-events: none;
+            z-index: 998;
         }
-        .content-wrapper {
+        
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: pan-grid 30s linear infinite;
+        }
+        @keyframes pan-grid {
+            to { transform: translateY(40px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
             position: relative;
             z-index: 10;
-            min-height: 100vh;
+        }
+
+        /* Navbar Chrome Style */
+        nav {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
         }
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to bottom, transparent, rgba(239, 68, 68, 0.1), transparent);
-            z-index: 20;
-            animation: scan 6s linear infinite;
-            pointer-events: none;
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 2px;
+            background: var(--chrome-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(255,255,255,0.1));
         }
-        @keyframes scan {
-            0%   { top: -5%; }
-            100% { top: 105%; }
+        .logo-tilde {
+            -webkit-text-fill-color: initial;
+            color: var(--text-white);
+            font-weight: bold;
+            font-size: 24px;
+            animation: blink 1s step-end infinite;
         }
-        .logo-glow {
-            filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.3));
-            animation: float 4s ease-in-out infinite;
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: var(--glass-grad);
+            color: var(--text-white);
+            text-decoration: none;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 4px 6px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%; width: 100%; height: 100%;
+            background: var(--mirror-shine);
+            transition: none;
+        }
+        .nav-btn:hover::after {
+            left: 150%;
+            transition: all 0.6s ease-in-out;
+        }
+        .nav-btn:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Floating Executions / Status Badge */
+        .floating-exec {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text-grey);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .ping {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 12px #ffffff;
+            animation: pulse-ping 2s infinite;
+        }
+        @keyframes pulse-ping {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* Hero */
+        .hero {
+            padding: 50px 0 80px;
+            text-align: center;
+        }
+        .title-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-family: 'Zen Dots', sans-serif;
+            font-size: clamp(44px, 7.5vw, 85px);
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            background: var(--chrome-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(255,255,255,0.15));
+            position: relative;
+            text-transform: uppercase;
+        }
+        .anim-logo {
+            position: absolute;
+            right: -65px;
+            bottom: 15px;
+            width: clamp(35px, 7vw, 65px);
+            filter: grayscale(1) brightness(1.5);
+            animation: float 5s ease-in-out infinite;
         }
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 4px 10px rgba(255,255,255,0.2)) grayscale(1); }
+            50% { transform: translateY(-12px) rotate(5deg); filter: drop-shadow(0 10px 25px rgba(255,255,255,0.5)) grayscale(1) brightness(1.3); }
         }
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
+        .subtitle {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--text-grey);
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-top: 24px;
+            margin-bottom: 45px;
+            text-transform: uppercase;
+            opacity: 0.8;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* Glassmorphism Loadstring Terminal */
+        .terminal {
+            background: rgba(15, 15, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            max-width: 800px;
+            margin: 0 auto 70px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .copy-success {
-            animation: successPulse 0.5s ease;
+        .terminal:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                inset 0 1px 2px rgba(255, 255, 255, 0.2),
+                0 35px 60px -10px rgba(0, 0, 0, 0.9);
+            transform: translateY(-4px);
         }
-        @keyframes successPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .term-header {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
         }
-        .footer-link {
-            transition: color 0.3s ease;
+        .term-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .td { width: 12px; height: 12px; border-radius: 50%; opacity: 0.65; }
+        .td.r { background: #ffffff; }
+        .td.y { background: #71717a; }
+        .td.g { background: #27272a; border: 1px solid rgba(255,255,255,0.2); }
+        
+        .term-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            color: var(--text-grey);
+        }
+        .term-body {
+            padding: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
+        }
+        .code-text {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: var(--text-white);
+            word-break: break-all;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .code-keyword { color: #ffffff; font-weight: bold; text-decoration: underline; }
+        .code-string { color: var(--text-grey); font-style: italic; }
+        
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-white);
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
             cursor: pointer;
-        }
-        .footer-link:hover {
-            color: #ef4444;
-        }
-        .nav-tab {
             transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-copy::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--chrome-grad);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        .btn-copy:hover::before {
+            opacity: 1;
+        }
+        .btn-copy:hover {
+            color: #000000;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.15);
+            transform: scale(1.02);
+        }
+        .btn-copy * {
+            position: relative;
+            z-index: 1;
+        }
+        .btn-copy.ok {
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        /* Bento Grid Glassmorphism */
+        .section-title {
+            font-family: 'Zen Dots', sans-serif;
+            font-size: 26px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--chrome-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .bento-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .bento-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-6px);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        .bento-card:hover::before {
+            opacity: 1;
+        }
+
+        .bc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .bc-icon {
+            background: rgba(255, 255, 255, 0.03);
+            width: 58px; height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+        }
+        .bc-icon img {
+            filter: grayscale(0.2) contrast(1.1);
+            transition: filter 0.3s ease;
+        }
+        .bento-card:hover .bc-icon img {
+            filter: grayscale(0) contrast(1.2);
+        }
+        
+        .bc-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .bc-badge.m, .bc-badge.d, .bc-badge.b {
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--text-grey);
+            border-color: var(--border);
+        }
+
+        .bc-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            letter-spacing: -0.3px;
+        }
+        .bc-desc {
+            font-size: 14px;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin-bottom: 26px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bc-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 18px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        .bc-stat {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bc-version {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* Ad Banners Mirror Overlay */
+        .ad-banner {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.01) !important;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Developer Tools & Support Layout */
+        .dev-support-container {
+            margin-top: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            align-items: center; 
+            max-width: 800px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            padding-bottom: 40px;
+        }
+        .dev-box {
+            text-align: center; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        }
+        .dev-label {
+            font-family: 'Share Tech Mono', monospace; 
+            font-size: 12px; 
+            color: var(--text-dim); 
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dev-btn-main {
+            border-radius: 30px !important;
+            justify-content: center; 
+            width: 100%; 
+            max-width: 320px;
+            font-weight: bold;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .term-body { flex-direction: column; align-items: stretch; padding: 20px; }
+            .btn-copy { width: 100%; padding: 12px; }
+            nav { flex-direction: column; gap: 20px; padding: 20px 0; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .title { font-size: 38px; }
+            .anim-logo { right: -25px; bottom: 5px; width: 35px; }
+            .bento-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── FLOATING CONTROLS & GLASS MODALS ── */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+        .fab-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .fab-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .fab-btn {
+            background: rgba(20, 20, 25, 0.85);
+            border: 1px solid var(--border);
+            color: var(--text-white);
+            padding: 12px 24px;
+            border-radius: 30px;
             cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s;
         }
-        .nav-tab:hover {
+        .fab-btn:hover {
+            border-color: var(--text-white);
+            background: rgba(30, 30, 35, 0.95);
+            transform: translateX(-4px);
+        }
+        .fab-main {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--chrome-grad);
+            border: none;
+            color: #000000;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+        .fab-main::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .fab-main:hover {
+            transform: scale(1.08) rotate(8deg);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.25);
+        }
+        .fab-main svg {
+            position: absolute;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2;
+            stroke: #000000;
+        }
+        .fab-main .icon-close {
+            opacity: 0;
+            transform: scale(0) rotate(-90deg);
+        }
+        .fab-main.active {
+            background: #ffffff;
+        }
+        .fab-main.active .icon-chat {
+            opacity: 0;
+            transform: scale(0) rotate(90deg);
+        }
+        .fab-main.active .icon-close {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+
+        /* Glassmorphism Modals */
+        .chat-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: rgba(15, 15, 18, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 520px;
+            z-index: 1001;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 
+                inset 0 1px 2px rgba(255, 255, 255, 0.15),
+                0 30px 70px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+        .chat-modal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .chat-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.35s ease;
+        }
+        .chat-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cm-header {
+            padding: 20px 26px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--text-white);
+        }
+        .cm-close {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-grey);
+            cursor: pointer;
+            font-size: 20px;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .cm-close:hover {
+            color: #000000;
+            background: #ffffff;
+        }
+        .cm-body {
+            padding: 26px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        .cm-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
             color: white;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: 'Noto Sans JP', sans-serif;
+            margin-bottom: 18px;
+            transition: all 0.3s;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
         }
-        .nav-tab.active {
-            background: #ef4444;
-            color: black;
+        .cm-input:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(0, 0, 0, 0.5);
         }
-        .script-card {
-            transition: all 0.3s ease;
+        textarea.cm-input {
+            resize: vertical;
         }
-        .script-card:hover {
-            border-color: rgba(239, 68, 68, 0.3);
-            transform: translateY(-2px);
+        .cm-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.05);
         }
-        .tag {
-            transition: all 0.3s ease;
+        .cm-btn:hover {
+            background: var(--text-grey);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.15);
+            transform: translateY(-1px);
         }
-        .tag:hover {
-            color: white;
-            background: rgba(239, 68, 68, 0.2);
+        .cm-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
         }
-        .link-button {
-            transition: all 0.3s ease;
+
+        /* Thread Elements Dynamic Design */
+        .thread-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+            text-align: left;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
         }
-        .link-button:hover {
-            border-color: rgba(239, 68, 68, 0.4);
-            background: rgba(255, 255, 255, 0.06);
+        .th-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            font-family: 'Share Tech Mono', monospace;
         }
-        .link-button:hover i {
-            color: #ef4444;
+        .th-name {
+            color: var(--text-white);
+            font-weight: bold;
         }
-        .link-button:hover span {
-            color: white;
+        .th-msg {
+            font-size: 14px;
+            color: #e4e4e7;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .th-reply {
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid #ffffff;
+            padding: 12px;
+            font-size: 13px;
+            border-radius: 0 10px 10px 0;
+            color: var(--text-grey);
+        }
+        .th-reply-head {
+            color: var(--text-white);
+            font-weight: bold;
+            font-size: 11px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
+
 <body>
-    <div id="root"></div>
 
-    <script>
-        window.onerror = function(msg, url, line, col, error) {
-            const root = document.getElementById('root');
-            if (root) {
-                root.innerHTML = `
-                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#050505;color:#ef4444;font-family:monospace;padding:20px;text-align:center;">
-                        <h1 style="font-size:24px;margin-bottom:10px;">⚠️ Error Loading Page</h1>
-                        <p style="color:#888;font-size:14px;max-width:500px;">${msg || 'Unknown error'}</p>
-                        <details style="margin-top:20px;color:#555;font-size:12px;max-width:500px;text-align:left;">
-                            <summary>Technical Details</summary>
-                            <pre style="margin-top:10px;background:#111;padding:10px;border-radius:4px;overflow:auto;max-height:200px;">${error?.stack || 'No stack trace available'}</pre>
-                        </details>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Navbar -->
+        <nav>
+            <div class="logo">
+                <span class="logo-tilde">~</span> ZHENS HUB
+            </div>
+            <div class="nav-links">
+                <a href="/infostock.html" class="nav-btn">
+                    <span style="color: #ffffff; text-shadow: 0 0 8px #fff;">●</span> Live Market
+                </a>
+                <a href="https://discord.gg/HB9gqZGMnT" target="_blank" class="nav-btn">
+                    Discord
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbCBSBOCRs1pRNYpPN0r" target="_blank" class="nav-btn" style="border-color: rgba(255,255,255,0.15);">WA Channel</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="floating-exec">
+                <div class="ping"></div>
+                Total Execute: <span id="totExecCount" style="color: #fff; font-weight: bold; font-size: 14px;">...</span>
+            </div>
+
+            <div style="position: relative; width: fit-content; margin: 0 auto;">
+                <h1 class="title">Victoria<br>Script</h1>
+                <img src="assets/logo.png" class="anim-logo" alt="logo" onerror="this.src='https://raw.githubusercontent.com/fay23-dam/victoriascript/main/assets/logo.png'">
+            </div>
+
+            <p class="subtitle">// Multi-Game · Auto Farm · Android Ready</p>
+            
+            <!-- Terminal Loadstring Elements -->
+            <div class="terminal">
+                <div class="term-header">
+                    <div class="term-dots">
+                        <div class="td r"></div>
+                        <div class="td y"></div>
+                        <div class="td g"></div>
                     </div>
-                `;
-            }
-            return true;
-        };
-
-        if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
-            document.getElementById('root').innerHTML = `
-                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#050505;color:#ef4444;font-family:monospace;padding:20px;text-align:center;">
-                    <h1 style="font-size:24px;margin-bottom:10px;">⚠️ React Failed to Load</h1>
-                    <p style="color:#888;font-size:14px;">Check your internet connection and try again.</p>
+                    <div class="term-title">universal.lua</div>
                 </div>
-            `;
-            throw new Error('React not loaded');
-        }
-    </script>
+                <div class="term-body">
+                    <div class="code-text">
+                        <span class="code-keyword">loadstring</span>(game:HttpGet(<span class="code-string">"https://raw.githubusercontent.com/fay23-dam/sazaraaaxxdhanzy/refs/heads/main/main.lua"</span>))()
+                    </div>
+                    <button class="btn-copy" id="main-cbtn" onclick="copyMain()"><span>Salin Script</span></button>
+                </div>
+            </div>
+        </section>
 
-    <script>
-        const { useEffect, useRef, useState } = React;
-        const RainBackground = ({ speed = 1 }) => {
-            const canvasRef = useRef(null);
-            const mouse = useRef({ x: 0, y: 0 });
+        <!-- ── AD BANNER 1 ── -->
+        <div class="ad-banner a3" style="padding: 10px; min-height: 120px; border: none; background: transparent; box-shadow: none;">
+            <script async="async" data-cfasync="false" src="https://pl29757735.effectivecpmnetwork.com/a2555f70b659fd751081d8c971ab4070/invoke.js"></script>
+            <div id="container-a2555f70b659fd751081d8c971ab4070"></div>
+        </div>
 
-            const getSeasonConfig = () => {
-                const month = new Date().getUTCMonth();
-                if ([11, 0, 1].includes(month)) return { name: 'winter', color: '200, 230, 255', count: 400, type: 'snow' };
-                if ([2, 3, 4].includes(month)) return { name: 'spring', color: '255, 182, 193', count: 300, type: 'petal' };
-                if ([5, 6, 7].includes(month)) return { name: 'summer', color: '239, 68, 68', count: 600, type: 'rain' };
-                return { name: 'autumn', color: '255, 140, 0', count: 350, type: 'leaf' };
-            };
+        <!-- Script Collection (Bento Grid) -->
+        <section style="margin-top: 40px;">
+            <h2 class="section-title">Script Collection</h2>
+            <div class="bento-grid" id="gameCards">
+                <div style="color:var(--text-grey); font-family: 'Share Tech Mono', monospace;">Memuat script...</div>
+            </div>
+        </section>
 
-            useEffect(() => {
-                const canvas = canvasRef.current;
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                const season = getSeasonConfig();
-                let animationFrameId;
-
-                const droplets = [];
-
-                const resize = () => {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
+        <!-- ── AD BANNER 2 ── -->
+        <div class="ad-banner a4" style="margin-top: 10px; padding: 10px; min-height: 80px; border: none; background: transparent; box-shadow: none;">
+            <script>
+                atOptions = {
+                    'key': '249c92a599081c51dd1ef441cfd6de7c',
+                    'format': 'iframe',
+                    'height': 60,
+                    'width': 468,
+                    'params': {}
                 };
+            </script>
+            <script src="https://www.highperformanceformat.com/249c92a599081c51dd1ef441cfd6de7c/invoke.js"></script>
+        </div>
 
-                const createParticle = () => ({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    length: season.type === 'rain' ? Math.random() * 20 + 10 : Math.random() * 5 + 5,
-                    size: Math.random() * 2 + 1,
-                    speed: Math.random() * (season.type === 'snow' ? 2 : 10) + 3,
-                    opacity: Math.random() * 0.4 + 0.1,
-                    drift: Math.random() * 2 - 1,
-                    spin: Math.random() * 0.2
+        <!-- TOOLS & SUPPORT DEVELOPER -->
+        <div class="dev-support-container">
+            <!-- TOOLS -->
+            <div class="dev-box">
+                <p class="dev-label">// Tools untuk developer</p>                
+                <a href="https://luraphdeobfvictoria-6zfp.vercel.app/" target="_blank" class="nav-btn dev-btn-main">
+                    🔓 Victoria Obfuscate
+                </a>
+            </div>
+            <!-- SAWERIA -->
+            <div class="dev-box">
+                <p class="dev-label">// Suka scriptnya? Support pengembang 🙏</p>
+                <a href="https://saweria.co/sazaraaa" target="_blank" class="nav-btn dev-btn-main" style="border-color: rgba(255,255,255,0.25);">
+                    ☕ Saweria — sazaraaa
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB ACTIONS -->
+    <div class="fab-container">
+        <div class="fab-menu" id="fabMenu">
+            <button class="fab-btn" onclick="openModal('modalThread')">💬 Public Threads</button>
+            <button class="fab-btn" onclick="openModal('modalSend')">✉️ Kirim Pesan</button>
+        </div>
+        <button class="fab-main" id="fabMain" onclick="toggleFab()">
+            <!-- Bot Chat SVG -->
+            <svg class="icon-chat" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                <circle cx="12" cy="5" r="2"></circle>
+                <path d="M12 7v4"></path>
+                <line x1="8" y1="16" x2="8" y2="16"></line>
+                <line x1="16" y1="16" x2="16" y2="16"></line>
+            </svg>
+            <!-- Close SVG -->
+            <svg class="icon-close" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="chat-overlay" id="chatOverlay" onclick="closeModals()"></div>
+    
+    <!-- Modal Send Message -->
+    <div class="chat-modal" id="modalSend">
+        <div class="cm-header">
+            <span>KIRIM PESAN KE ADMIN</span>
+            <button class="cm-close" onclick="closeModals()">×</button>
+        </div>
+        <div class="cm-body">
+            <input type="text" id="msgName" class="cm-input" placeholder="Nama Anda (Boleh Anonim)" maxlength="30">
+            <textarea id="msgContent" class="cm-input" placeholder="Tulis pesan, request, atau laporan error..." rows="5" maxlength="500"></textarea>
+            <button class="cm-btn" id="btnSendMsg" onclick="sendMsg()">KIRIM PESAN</button>
+        </div>
+    </div>
+
+    <!-- Modal Thread -->
+    <div class="chat-modal" id="modalThread">
+        <div class="cm-header">
+            <span>PUBLIC THREADS</span>
+            <button class="cm-close" onclick="closeModals()">×</button>
+        </div>
+        <div class="cm-body" id="threadContainer">
+            <div style="text-align:center; color:var(--text-dim); font-family: 'Share Tech Mono', monospace;">Memuat pesan...</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="text-align: center; padding: 40px 20px; font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--text-dim); border-top: 1px dashed rgba(255,255,255,0.1); margin-top: 60px; background: rgba(0, 0, 0, 0.4);">
+        <div><span style="color: var(--text-white); font-weight: bold; letter-spacing: 0.5px;">Victoria Script</span> · by sazaraaax & dhanzy · 2026</div>
+        <div style="margin-top: 8px; opacity: 0.5;">Script hanya untuk keperluan edukasi dan pengujian pribadi.</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ── SUPABASE INIT ──
+        var SUPA_URL = 'https://tqjxlaoeblqabwexmtqr.supabase.co';
+        var SUPA_KEY = 'sb_publishable_Wvw1qMUJzEyV5eE502iuYg_mA6vrRIA';
+        var db = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+        var LS_URL = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/fay23-dam/sazaraaaxxdhanzy/refs/heads/main/main.lua"))()';
+
+        // ── LOAD SCRIPTS DARI DATABASE ──
+        async function loadFromDB() {
+            try {
+                var { data: scripts, error } = await db
+                    .from('scripts')
+                    .select('*');
+
+                if (error) throw error;
+                if (!scripts || !scripts.length) {
+                    document.getElementById('gameCards').innerHTML = '<div class="bento-card" style="text-align:center;color:var(--text-grey)">Belum ada script yang tersedia.</div>';
+                    return;
+                }
+
+                // Fetch executions counts
+                var execCounts = {};
+                var totalExecs = 0;
+
+                var { count: totalCount } = await db.from('executions').select('*', { count: 'exact', head: true });
+                totalExecs = totalCount || 0;
+
+                // Fetch count for each script concurrently
+                await Promise.all(scripts.map(async function (s) {
+                    var { count } = await db.from('executions').select('*', { count: 'exact', head: true }).eq('script_id', s.id);
+                    execCounts[s.id] = count || 0;
+                }));
+                
+                // Fetch Roblox Thumbnails
+                var placeIdsToFetch = [];
+                scripts.forEach(function(s) {
+                    var extracted = null;
+                    if (s.emoji) {
+                        var match = s.emoji.match(/(?:games\/|placeId=|^)(\d{6,})/);
+                        if (match) extracted = match[1];
+                    }
+                    if (!extracted && s.game_id) {
+                        extracted = s.game_id.toString();
+                    }
+
+                    if (extracted) {
+                        s.extractedPlaceId = extracted;
+                        placeIdsToFetch.push(extracted);
+                    }
                 });
 
-                for (let i = 0; i < season.count; i++) droplets.push(createParticle());
+                if (placeIdsToFetch.length > 0) {
+                    try {
+                        var uniqueIds = [...new Set(placeIdsToFetch)];
+                        var proxyUrl = 'https://thumbnails.roproxy.com/v1/places/gameicons?placeIds=' + uniqueIds.join(',') + '&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false';
+                        var thumbRes = await fetch(proxyUrl);
+                        var thumbData = await thumbRes.json();
 
-                const handleMouseMove = (e) => {
-                    mouse.current.x = (e.clientX / window.innerWidth) - 0.5;
-                    mouse.current.y = (e.clientY / window.innerHeight) - 0.5;
-                };
-
-                const draw = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    const mouseOffsetX = mouse.current.x * 60;
-                    const tilt = mouse.current.x * (season.type === 'rain' ? 5 : 2);
-
-                    droplets.forEach(p => {
-                        ctx.beginPath();
-                        ctx.fillStyle = `rgba(${season.color}, ${p.opacity})`;
-                        ctx.strokeStyle = `rgba(${season.color}, ${p.opacity})`;
-                        ctx.lineWidth = p.size;
-
-                        if (season.type === 'rain') {
-                            ctx.moveTo(p.x + mouseOffsetX, p.y);
-                            ctx.lineTo(p.x + mouseOffsetX + tilt, p.y + p.length);
-                            ctx.stroke();
-                        } else {
-                            ctx.arc(p.x + mouseOffsetX, p.y, p.size, 0, Math.PI * 2);
-                            ctx.fill();
+                        var thumbMap = {};
+                        if (thumbData && thumbData.data) {
+                            thumbData.data.forEach(function(item) {
+                                thumbMap[item.targetId] = item.imageUrl;
+                            });
                         }
 
-                        p.y += p.speed * speed;
-                        p.x += (p.drift + (mouse.current.x * 10)) * speed;
-
-                        if (p.y > canvas.height) {
-                            p.y = -20;
-                            p.x = Math.random() * canvas.width;
-                        }
-                        if (p.x > canvas.width) p.x = 0;
-                        if (p.x < 0) p.x = canvas.width;
-                    });
-
-                    animationFrameId = requestAnimationFrame(draw);
-                };
-
-                window.addEventListener('resize', resize);
-                window.addEventListener('mousemove', handleMouseMove);
-                resize();
-                draw();
-
-                return () => {
-                    window.removeEventListener('resize', resize);
-                    window.removeEventListener('mousemove', handleMouseMove);
-                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                };
-            }, [speed]);
-
-            return React.createElement('canvas', {
-                ref: canvasRef,
-                className: 'rain-canvas',
-                style: { filter: 'blur(0.8px)' }
-            });
-        };
-
-        const ScriptBlock = () => {
-            const [copied, setCopied] = useState(false);
-            const [config, setConfig] = useState({
-                version: "LOADING...",
-                status: "CHECKING...",
-                statusColor: "gray"
-            });
-
-            const scriptText = `loadstring(game:HttpGet("https://rawrs.zapto.org/file.txt", true))()`;
-
-            useEffect(() => {
-                const jsonUrl = `https://raw.githubusercontent.com/imcomingforyou6959-gif/rawr.xyl/refs/heads/main/status.json?t=${new Date().getTime()}`;
-
-                fetch(jsonUrl)
-                    .then(response => {
-                        if (!response.ok) throw new Error('File not found');
-                        return response.json();
-                    })
-                    .then(data => {
-                        setConfig(data);
-                    })
-                    .catch(() => {
-                        setConfig({ version: "V4.5.1", status: "ONLINE", statusColor: "green" });
-                    });
-            }, []);
-
-            const handleCopy = async () => {
-                try {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        await navigator.clipboard.writeText(scriptText);
-                    } else {
-                        const textArea = document.createElement("textarea");
-                        textArea.value = scriptText;
-                        textArea.style.position = "fixed";
-                        textArea.style.left = "-9999px";
-                        document.body.appendChild(textArea);
-                        textArea.focus();
-                        textArea.select();
-                        document.execCommand('copy');
-                        textArea.remove();
+                        scripts.forEach(function(s) {
+                            if (s.extractedPlaceId && thumbMap[s.extractedPlaceId]) {
+                                s.gameImageUrl = thumbMap[s.extractedPlaceId];
+                            }
+                        });
+                    } catch(e) {
+                        console.error("Failed to fetch thumbnails:", e);
                     }
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                } catch (err) {
-                    console.error('Failed to copy: ', err);
                 }
-            };
 
-            const dotColorClass = config.statusColor === "green" ? "bg-green-500" : 
-                                 config.statusColor === "red" ? "bg-red-500" : "bg-yellow-500";
-            const textColorClass = config.statusColor === "green" ? "text-green-500/80" : 
-                                  config.statusColor === "red" ? "text-red-500/80" : "text-yellow-500/80";
-
-            const CompatibilityBar = () => {
-                const executors = ["Xeno", "Velocity", "Solara", "Volt", "Sirhurt", "Wave", "Madium", "Luna", "And Any Executor!"];
-                return React.createElement('div', { className: "mt-6 w-full max-w-lg px-2 fade-in" },
-                    React.createElement('div', { className: "flex items-center gap-3 mb-3" },
-                        React.createElement('div', { className: "h-[1px] flex-1 bg-white/5" }),
-                        React.createElement('span', { className: "text-[9px] font-mono text-white/20 tracking-[0.3em] uppercase" }, "Verified Compatibility"),
-                        React.createElement('div', { className: "h-[1px] flex-1 bg-white/5" })
-                    ),
-                    React.createElement('div', { className: "flex flex-wrap justify-center gap-x-6 gap-y-3 opacity-40 hover:opacity-100 transition-opacity duration-500" },
-                        ...executors.map((name) =>
-                            React.createElement('div', { key: name, className: "flex items-center gap-2 group" },
-                                React.createElement('div', { className: "w-1 h-1 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-[0_0_8px_#ef4444] transition-all" }),
-                                React.createElement('span', { className: "text-[10px] font-mono font-bold text-white/60 group-hover:text-white transition-colors tracking-wider" }, name)
-                            )
-                        ),
-                        React.createElement('span', { className: "text-[10px] font-mono text-white/20 italic" }, "& more")
-                    )
-                );
-            };
-
-            return React.createElement('div', { className: "flex flex-col items-center w-full" },
-                React.createElement('div', { className: "relative w-full max-w-lg bg-black/60 border border-white/10 rounded-xl overflow-hidden backdrop-blur-md shadow-2xl mt-8 fade-in" },
-                    React.createElement('div', { className: "flex items-center justify-between px-4 py-3 bg-white/5 border-b border-white/10" },
-                        React.createElement('div', { className: "flex items-center gap-4" },
-                            React.createElement('div', { className: "flex gap-1.5" },
-                                React.createElement('div', { className: "w-2.5 h-2.5 rounded-full bg-[#ff5f56]" }),
-                                React.createElement('div', { className: "w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" }),
-                                React.createElement('div', { className: "w-2.5 h-2.5 rounded-full bg-[#27c93f]" })
-                            ),
-                            React.createElement('span', { className: "text-[10px] font-mono text-white/30 bg-white/5 px-2 py-0.5 rounded border border-white/5 uppercase tracking-tighter" }, config.version)
-                        ),
-                        React.createElement('div', { className: "flex items-center gap-2" },
-                            React.createElement('span', { className: "relative flex h-2 w-2" },
-                                React.createElement('span', { className: `animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${dotColorClass}` }),
-                                React.createElement('span', { className: `relative inline-flex rounded-full h-2 w-2 ${dotColorClass}` })
-                            ),
-                            React.createElement('span', { className: `text-[10px] font-mono uppercase tracking-widest font-bold ${textColorClass}` }, config.status)
-                        )
-                    ),
-                    React.createElement('div', { className: "p-6 relative group" },
-                        React.createElement('div', { className: "bg-black/40 rounded-lg p-4 mb-4 border border-white/5 group-hover:border-primary/20 transition-colors" },
-                            React.createElement('code', { className: "block font-mono text-[10px] md:text-xs text-primary/90 break-all leading-relaxed" },
-                                React.createElement('span', { className: "text-white/20 mr-2" }, "$"),
-                                scriptText
-                            )
-                        ),
-                        React.createElement('button', {
-                            onClick: handleCopy,
-                            className: `relative w-full py-4 rounded-lg font-mono text-[10px] font-bold transition-all duration-300 border border-primary/30 bg-primary/5 hover:bg-primary/20 text-white tracking-widest overflow-hidden active:scale-95 ${copied ? 'copy-success' : ''}`
-                        },
-                            copied ? '✅ Copied to Clipboard' : '📋 Click to copy'
-                        )
-                    )
-                ),
-                React.createElement(CompatibilityBar, null)
-            );
-        };
-
-        const ScriptsPage = () => {
-            const [copiedId, setCopiedId] = useState(null);
-
-            const scripts = [
-                {
-                    id: 1,
-                    name: "Universal Old",
-                    description: "outdated",
-                    version: "2.3.1",
-                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/Universal.lua", true))()',
-                    tags: ["ALL-IN-ONE", "STABLE"]
-                },
-                {
-                    id: 2,
-                    name: "Hellmet",
-                    description: "things",
-                    version: "1.1.5",
-                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/Hellmet.lua"))()',
-                    tags: ["ESP", "AIMBOT"]
-                },
-                {
-                    id: 3,
-                    name: "Prison Life",
-                    description: "prison",
-                    version: "4.9.7",
-                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/file.txt", true))()',
-                    tags: ["PRISON", "ESCAPE"]
-                },
-                {
-                    id: 4,
-                    name: "Rivals",
-                    description: "rival",
-                    version: "4.9.6",
-                    loadstring: 'loadstring(game:HttpGet("https://rawrs.zapto.org/file.txt", true))()',
-                    tags: ["PVP", "COMPETITIVE"]
-                },
-                {
-                    id: 5,
-                    name: "nil",
-                    description: "nil",
-                    version: "2.1.0",
-                    loadstring: 'new',
-                    tags: ["pcp", "pcp"]
-                },
-                {
-                    id: 6,
-                    name: "nil",
-                    description: "nil",
-                    version: "3.0.2",
-                    loadstring: 'nil',
-                    tags: ["nil", "placeholder"]
+                // Update Floating Total Executions
+                var formattedExecs = totalExecs;
+                if (totalExecs >= 1000) {
+                    formattedExecs = (totalExecs / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
                 }
-            ];
+                var totEl = document.getElementById('totExecCount');
+                if (totEl) totEl.innerText = formattedExecs;
 
-            const copyScript = async (scriptText, id) => {
-                try {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        await navigator.clipboard.writeText(scriptText);
-                    } else {
-                        const textArea = document.createElement("textarea");
-                        textArea.value = scriptText;
-                        textArea.style.position = "fixed";
-                        textArea.style.left = "-9999px";
-                        document.body.appendChild(textArea);
-                        textArea.focus();
-                        textArea.select();
-                        document.execCommand('copy');
-                        textArea.remove();
+                // Sort scripts by updated_at or created_at
+                scripts.sort(function (a, b) {
+                    var dateA = new Date(a.updated_at || a.created_at).getTime();
+                    var dateB = new Date(b.updated_at || b.created_at).getTime();
+                    return dateB - dateA;
+                });
+
+                // Render game cards
+                var cardsEl = document.getElementById('gameCards');
+                cardsEl.innerHTML = scripts.map(function (s, i) {
+                    var badgeText = s.status.toUpperCase();
+                    var cardId = 'card-' + i;
+                    var execCount = execCounts[s.id] || 0;
+                    return '<div class="bento-card" id="' + cardId + '">' +
+        '<div class="bc-header">' +
+            '<div class="bc-icon" style="padding:0; overflow:hidden;">' +
+            (s.gameImageUrl ? '<img src="' + s.gameImageUrl + '" style="width:100%; height:100%; object-fit:cover;">' : (s.emoji && !s.emoji.match(/\d{6,}/) ? s.emoji : '🎮')) +
+            '</div>' +
+            '<div class="bc-badge ' + (s.status === 'beta' ? 'b' : s.status === 'maintenance' ? 'm' : s.status === 'disabled' ? 'd' : '') + '">' + badgeText + '</div>' +
+        '</div>' +
+        '<div class="bc-title">' + esc(s.game_name) + '</div>' +
+        '<div class="bc-desc">' + esc(s.description || 'Victoria Script') + '</div>' +
+        '<div class="bc-footer">' +
+            '<div class="bc-stat">🔥 ' + execCount + ' Executions</div>' +
+            '<div class="bc-version">v' + (s.version || '1.0.0') + '</div>' +        '</div>' +
+    '</div>';
+                }).join('');
+
+            } catch (e) {
+                console.error('Load error:', e);
+                document.getElementById('gameCards').innerHTML = '<div class="bento-card"><div style="color:rgba(255,100,100,0.8); font-family: monospace;">Gagal memuat: ' + esc(e.message) + '</div></div>';
+            }
+        }
+
+        // Jalankan saat load
+        loadFromDB();
+
+        // SETUP REALTIME SUBSCRIPTIONS
+        let loadDBTimeout;
+        function debouncedLoadFromDB() {
+            clearTimeout(loadDBTimeout);
+            loadDBTimeout = setTimeout(() => { loadFromDB(); }, 1500);
+        }
+
+        db.channel('landing-scripts')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'scripts' }, () => { debouncedLoadFromDB(); })
+            .subscribe();
+
+        db.channel('landing-executions')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'executions' }, () => { debouncedLoadFromDB(); })
+            .subscribe();
+
+        // ── COPY LOADSTRING ──
+        function copyMain() {
+            var btn = document.getElementById('main-cbtn');
+            function done() {
+                btn.classList.add('ok');
+                btn.innerHTML = '<span>Disalin!</span>';
+                setTimeout(function () {
+                    btn.classList.remove('ok');
+                    btn.innerHTML = '<span>Salin Script</span>';
+                }, 2500);
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(LS_URL).then(done);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = LS_URL;
+                ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+                document.body.appendChild(ta); ta.focus(); ta.select();
+                try { document.execCommand('copy'); done(); } catch (e) { }
+                document.body.removeChild(ta);
+            }
+        }
+
+        function esc(str) {
+            if (!str) return '';
+            var d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        // ── FLOATING CHAT LOGIC ──
+        let isFabOpen = false;
+        function toggleFab() {
+            isFabOpen = !isFabOpen;
+            document.getElementById('fabMain').classList.toggle('active', isFabOpen);
+            document.getElementById('fabMenu').classList.toggle('active', isFabOpen);
+            if (!isFabOpen) {
+                closeModals();
+            }
+        }
+
+        function closeModals() {
+            isFabOpen = false;
+            document.getElementById('fabMain').classList.remove('active');
+            document.getElementById('fabMenu').classList.remove('active');
+            document.getElementById('chatOverlay').classList.remove('active');
+            document.getElementById('modalSend').classList.remove('active');
+            document.getElementById('modalThread').classList.remove('active');
+        }
+
+        function openModal(id) {
+            document.getElementById('fabMenu').classList.remove('active');
+            document.getElementById('modalSend').classList.remove('active');
+            document.getElementById('modalThread').classList.remove('active');
+
+            document.getElementById('chatOverlay').classList.add('active');
+            document.getElementById(id).classList.add('active');
+            if (id === 'modalThread') loadThreads();
+        }
+
+        async function loadThreads() {
+            const container = document.getElementById('threadContainer');
+            container.innerHTML = '<div style="text-align:center; color:var(--text-dim); font-family: monospace;">Memuat pesan...</div>';
+            try {
+                const { data, error } = await db.from('messages')
+                    .select('*')
+                    .neq('status', 'closed')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; color:var(--text-grey); font-family: monospace;">Belum ada percakapan publik.</div>';
+                    return;
+                }
+
+                container.innerHTML = data.map(msg => {
+                    let dateStr = new Date(msg.created_at).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' });
+                    let html = `
+                    <div class="thread-item">
+                        <div class="th-header">
+                            <span class="th-name">👤 ${esc(msg.sender_name)}</span>
+                            <span>${dateStr}</span>
+                        </div>
+                        <div class="th-msg">${esc(msg.content)}</div>
+                    `;
+                    if (msg.admin_reply) {
+                        html += `
+                        <div class="th-reply">
+                            <div class="th-reply-head">⭐ Admin Reply</div>
+                            <div>${msg.admin_reply}</div>
+                        </div>`;
                     }
-                    setCopiedId(id);
-                    setTimeout(() => setCopiedId(null), 2000);
-                } catch (err) {
-                    console.error('Failed to copy: ', err);
+                    html += `</div>`;
+                    return html;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = `<div style="color:red;text-align:center;">Gagal memuat: ${esc(err.message)}</div>`;
+            }
+        }
+
+        async function sendMsg() {
+            const name = document.getElementById('msgName').value.trim() || 'Anonymous';
+            const content = document.getElementById('msgContent').value.trim();
+            if (!content) return alert("Pesan tidak boleh kosong!");
+
+            const btn = document.getElementById('btnSendMsg');
+            btn.disabled = true;
+            btn.innerText = "MENGIRIM...";
+
+            try {
+                const { error } = await db.from('messages').insert([{ sender_name: name, content: content, status: 'open' }]);
+                if (error) throw error;
+
+                document.getElementById('msgContent').value = '';
+                btn.innerText = "BERHASIL!";
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerText = "KIRIM PESAN";
+                    openModal('modalThread');
+                }, 1500);
+            } catch (err) {
+                alert("Gagal mengirim: " + err.message);
+                btn.disabled = false;
+                btn.innerText = "KIRIM PESAN";
+            }
+        }
+
+        // Realtime Messages
+        db.channel('messages-realtime')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, () => {
+                if (document.getElementById('modalThread').classList.contains('active')) {
+                    loadThreads();
                 }
-            };
-
-            return React.createElement('div', { className: "relative z-20 w-full max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16" },
-                React.createElement('div', { className: "text-center mb-12 fade-in" },
-                    React.createElement('h2', { className: "text-4xl sm:text-5xl font-black font-mono text-white italic tracking-tight" },
-                        "Script ", React.createElement('span', { className: "text-primary" }, "Library")
-                    ),
-                    React.createElement('p', { className: "text-white/30 font-mono text-[10px] sm:text-xs tracking-[0.3em] uppercase mt-3" },
-                        "All scripts are regularly updated"
-                    )
-                ),
-                React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" },
-                    scripts.map((script) =>
-                        React.createElement('div', {
-                            key: script.id,
-                            className: "bg-black/40 border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm script-card"
-                        },
-                            React.createElement('div', { className: "p-5" },
-                                React.createElement('div', { className: "flex items-start justify-between mb-3" },
-                                    React.createElement('h3', { className: "text-lg font-bold text-white group-hover:text-primary transition-colors" }, script.name),
-                                    React.createElement('span', { className: "text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded font-mono" }, script.version)
-                                ),
-                                React.createElement('p', { className: "text-white/60 text-sm mb-4 min-h-[40px]" }, script.description),
-                                React.createElement('div', { className: "flex flex-wrap gap-2 mb-4" },
-                                    script.tags.map(tag =>
-                                        React.createElement('span', {
-                                            key: tag,
-                                            className: "text-[9px] bg-white/5 text-white/40 px-2 py-0.5 rounded uppercase tracking-wider tag"
-                                        }, tag)
-                                    )
-                                ),
-                                React.createElement('div', { className: "bg-black/60 rounded-lg p-3 mb-3 border border-white/5 overflow-x-auto" },
-                                    React.createElement('code', { className: "text-primary/80 text-[10px] font-mono break-all select-all" }, script.loadstring)
-                                ),
-                                React.createElement('button', {
-                                    onClick: () => copyScript(script.loadstring, script.id),
-                                    className: "w-full py-2.5 bg-primary/10 hover:bg-primary text-primary hover:text-black border border-primary/20 rounded-lg font-bold text-[10px] tracking-wider uppercase transition-all flex items-center justify-center gap-2"
-                                },
-                                    React.createElement('i', { className: `fas ${copiedId === script.id ? 'fa-check' : 'fa-copy'} text-[10px]` }),
-                                    copiedId === script.id ? 'Copied!' : 'Copy Script'
-                                )
-                            )
-                        )
-                    )
-                ),
-                React.createElement('div', { className: "mt-12 text-center" },
-                    React.createElement('p', { className: "text-white/20 text-[9px] font-mono" },
-                        React.createElement('i', { className: "fas fa-shield-alt mr-2" }),
-                        "All scripts are regularly updated and tested for stability."
-                    )
-                )
-            );
-        };
-
-        const LinkButton = ({ href, icon, label, external = true }) => {
-            return React.createElement('a', {
-                href: href,
-                target: external ? "_blank" : "_self",
-                rel: external ? "noopener noreferrer" : "",
-                className: "flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 bg-white/[0.02] border border-white/5 rounded-lg sm:rounded-2xl link-button backdrop-blur-sm"
-            },
-                React.createElement('i', { className: `${icon} text-white/30 group-hover:text-primary transition-colors text-lg sm:text-xl` }),
-                React.createElement('span', { className: "font-bold text-[11px] sm:text-[13px] tracking-tight text-white/60 group-hover:text-white transition-colors" }, label)
-            );
-        };
-
-        const App = () => {
-            const [page, setPage] = useState('home');
-
-            const renderPage = () => {
-                if (page === 'scripts') {
-                    return React.createElement(ScriptsPage, null);
-                }
-                return React.createElement('div', { className: "flex flex-col items-center w-full max-w-4xl" },
-                    React.createElement('img', {
-                        src: "assets/logo.png",
-                        alt: "rawr.xyz",
-                        className: "w-28 h-28 sm:w-44 sm:h-44 object-contain mb-8 sm:mb-12 logo-glow",
-                        onError: (e) => { e.target.style.display = 'none'; }
-                    }),
-                    React.createElement('div', { className: "text-center mb-8" },
-                        React.createElement('h1', { className: "text-5xl sm:text-7xl font-black font-mono text-white italic tracking-tighter uppercase leading-tight" },
-                            "rawr", React.createElement('span', { className: "text-primary" }, ".xyz")
-                        ),
-                        React.createElement('p', { className: "text-white/20 font-mono text-[8px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.6em] mt-3 uppercase font-bold" },
-                            "Safety Security Execution"
-                        )
-                    ),
-                    React.createElement('div', { className: "flex flex-wrap justify-center gap-3 sm:gap-5 mb-8" },
-                        React.createElement(LinkButton, { href: "https://discord.gg/eMpUQzFrNG", icon: "fa-brands fa-discord", label: "Community" }),
-                        React.createElement(LinkButton, { href: "https://github.com/imcomingforyou6959-gif/rawr.xyz", icon: "fa-brands fa-github", label: "Repository" }),
-                        React.createElement(LinkButton, { href: "https://www.youtube.com/@rawr.xy3", icon: "fa-brands fa-youtube", label: "Showcase" })
-                    ),
-                    React.createElement(ScriptBlock, null)
-                );
-            };
-
-            const navLinks = [
-                { id: 'home', label: 'Home', icon: 'fa-home' },
-                { id: 'scripts', label: 'Scripts', icon: 'fa-scroll' }
-            ];
-
-            return React.createElement('div', { className: "min-h-screen w-full relative bg-background overflow-hidden" },
-                React.createElement(RainBackground, null),
-                React.createElement('div', { className: "scanline" }),
-                React.createElement('div', { className: "content-wrapper flex flex-col items-center justify-center" },
-                    // Navigation
-                    React.createElement('div', { className: "relative z-20 flex gap-2 mb-8 bg-white/5 p-1 rounded-full border border-white/10" },
-                        navLinks.map(link =>
-                            React.createElement('button', {
-                                key: link.id,
-                                onClick: () => setPage(link.id),
-                                className: `px-6 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all nav-tab ${page === link.id ? 'active' : 'text-white/40 hover:text-white/80'}`
-                            },
-                                React.createElement('i', { className: `fas ${link.icon} mr-2` }),
-                                link.label
-                            )
-                        )
-                    ),
-                    renderPage(),
-                    React.createElement('footer', { className: "mt-16 sm:mt-24 z-20 text-center select-none w-full max-w-4xl" },
-                        React.createElement('div', { className: "text-[8px] sm:text-[10px] font-mono text-white/10 tracking-[0.5em] sm:tracking-[0.8em] uppercase mb-3" },
-                            "rawr.xyz // find a way to live :3"
-                        ),
-                        React.createElement('div', { className: "flex flex-wrap justify-center gap-3 sm:gap-6 text-[8px] sm:text-[9px] font-mono text-white/20 tracking-normal" },
-                            React.createElement('span', { className: "footer-link", onClick: () => setPage('home') }, "Home"),
-                            React.createElement('span', { className: "text-white/10" }, "•"),
-                            React.createElement('span', { className: "footer-link", onClick: () => setPage('scripts') }, "Scripts"),
-                            React.createElement('span', { className: "text-white/10" }, "•"),
-                            React.createElement('a', {
-                                href: "/tos.html",
-                                className: "footer-link hover:text-primary transition-colors"
-                            }, "Terms of Service"),
-                            React.createElement('span', { className: "text-white/10" }, "•"),
-                            React.createElement('a', {
-                                href: "/privacy.html",
-                                className: "footer-link hover:text-primary transition-colors"
-                            }, "Privacy Policy"),
-                            React.createElement('span', { className: "text-white/10" }, "•"),
-                            React.createElement('a', {
-                                href: "https://discord.gg/eMpUQzFrNG",
-                                target: "_blank",
-                                rel: "noopener noreferrer",
-                                className: "footer-link"
-                            },
-                                React.createElement('i', { className: "fab fa-discord mr-1" }),
-                                "Support"
-                            )
-                        ),
-                        React.createElement('div', { className: "text-[7px] sm:text-[8px] font-mono text-white/10 mt-3" },
-                            "\u00A9 2026 rawr.xyz - All Rights Reserved"
-                        )
-                    )
-                )
-            );
-        };
-
-        // Render
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(React.createElement(App));
+            })
+            .subscribe();
     </script>
+
+    <!-- Adsterra Global Script -->
+    <script src="https://pl29757915.effectivecpmnetwork.com/b9/a9/1b/b9a91b228ba7f9588f8c54fdd0f1c6d7.js"></script>
 </body>
-</html>
+
+    </html>
